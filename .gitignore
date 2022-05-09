@@ -5,3 +5,4 @@ media/
 *.png
 *.pdf
 *.docx
+mysite/settings.py
