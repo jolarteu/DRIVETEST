@@ -7,5 +7,5 @@ app_name = "drive"
 
 
 urlpatterns = [
-    path('', DriveFormView.as_view(), name='article-list'),
+    path('', ArticleListView.as_view(), name='article-list'),
 ]
