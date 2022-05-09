@@ -6,3 +6,5 @@ media/
 *.pdf
 *.docx
 mysite/settings.py
+graficas/
+mapas/

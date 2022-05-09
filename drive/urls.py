@@ -7,5 +7,6 @@ app_name = "drive"
 
 
 urlpatterns = [
-    path('', ArticleListView.as_view(), name='article-list'),
-]
+    path('', ArticleListView.as_view(), name='lista'),
+    path('agregar', DriveFormView.as_view(), name='agregar'),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

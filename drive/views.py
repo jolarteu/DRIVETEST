@@ -8,6 +8,8 @@ from docx import Document
 from docx.shared import Inches
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from django.http import FileResponse
+from map import main_map
+from django.conf import settings
 
 
 class ArticleListView(ListView):
@@ -20,9 +22,14 @@ class ArticleListView(ListView):
         return context
 
     def post(self, request):
+
         #today = date.today()
+        
         pk=request.POST['key']
+        main_map(pk)
+        print(pk)
         pk=str(pk)
+
         # ref=referencia.objects.filter(refer=object.refer).order_by('-pk')[0]
         #
         # pais_busqueda=pais.objects.filter(pk=ref.pais).order_by('-pk')[0]
@@ -44,11 +51,12 @@ class ArticleListView(ListView):
         return FileResponse(open('salida.docx', 'rb'), as_attachment=True, filename='hello.docx')
 
 
+
 class DriveFormView(FormView):
     template_name = 'drive/holi.html'
     form_class = driveForm
 
-    success_url ="/thanks/"
+    success_url ="/"
 
     def form_valid(self, form):
         """Save form data."""
