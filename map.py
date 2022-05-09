@@ -193,7 +193,7 @@ def main_map(df):
     generar_mapas_roaming(df)
     generar_mapas_roaming_2(df)
     # #generar_mapas_ca(df)
-    # guardar()
+    guardar()
 
     #borrar()
 

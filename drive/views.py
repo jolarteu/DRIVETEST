@@ -24,31 +24,11 @@ class ArticleListView(ListView):
     def post(self, request):
 
         #today = date.today()
-        
+
         pk=request.POST['key']
         main_map(pk)
-        print(pk)
-        pk=str(pk)
-
-        # ref=referencia.objects.filter(refer=object.refer).order_by('-pk')[0]
-        #
-        # pais_busqueda=pais.objects.filter(pk=ref.pais).order_by('-pk')[0]
-        # fabri=fabricante.objects.filter(pk=ref.fabricante).order_by('-pk')[0]
-        # Nombre=fabricante_pais.objects.filter(pais=pais_busqueda, fabricante=fabri).order_by('-id')[0]
-
-        document = Document()
-        section = document.sections[0]
-        header = section.header
-        paragraph = header.paragraphs[0]
-        run = paragraph.add_run()
-        run.add_picture("sos.png")
-
-        document.add_paragraph(
-        pk, style='List Bullet'
-        )
-        document.save('salida.docx')
-
-        return FileResponse(open('salida.docx', 'rb'), as_attachment=True, filename='hello.docx')
+        
+        return FileResponse(open('demo.docx', 'rb'), as_attachment=True, filename='hello.docx')
 
 
 
