@@ -69,7 +69,8 @@
         $(document).ready(function() {
           $('#example').DataTable({
               "lengthChange": false,
-              pageLength: 15,
+              pageLength: 10,
+               "order": [[ 2, "desc" ]]
           });
       } );
       </script>
