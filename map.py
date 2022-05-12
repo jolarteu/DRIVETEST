@@ -2,6 +2,8 @@ from docx import Document
 from docx.shared import Inches
 import pandas as pd
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import os, glob
@@ -10,6 +12,8 @@ from freq import *
 from django.conf import settings
 from django.core.files.storage import default_storage
 import ntpath
+from docx.enum.text import WD_COLOR_INDEX
+
 
 script_dir = os.path.dirname(__file__)
 mapas_dir = os.path.join(script_dir, 'mapas')
@@ -43,6 +47,9 @@ def mapa(latitud, longitud, nombre, type):
     dir2 = os.path.join(dir, nombre)
     print(dir2)
     plt.savefig(dir2,  dpi=250)
+    plt.clf()
+    plt.cla()
+    plt.close()
 
 def generar_mapas(df):
     latitud=df['LAT']
@@ -110,21 +117,22 @@ def generar_mapas_ca(df):
 
 def guardar():
 
-    document = Document()
-    section = document.sections[0]
-    header = section.header
-    paragraph = header.paragraphs[0]
-    run = paragraph.add_run()
-    run.add_picture("sos.png")
-    lista=['PLMN', 'SYSTEM','BAND']
+    f = open('base.docx', 'rb')
+    document = Document(f)
+
+    lista=['PLMN', 'SYSTEM','BAND', 'gps']
     puntos=[".0",""]
 
     for i in lista:
         nombre = os.path.join(graficas_dir, str(i))
 
-        document.add_paragraph(
-        'histograma '+str(i), style='List Bullet'
-        )
+        if i=='gps':
+            document.add_paragraph(
+            'GPS ', style='parrafo')
+
+        else:
+            document.add_paragraph(
+            'histograma '+str(i), style='parrafo')
 
         document.add_picture(nombre+".png", width=Inches(5))
         last_paragraph = document.paragraphs[-1]
@@ -139,16 +147,16 @@ def guardar():
             continue
 
         document.add_paragraph(
-        j, style='List Bullet'
+        j, style='parrafo'
         )
         document.add_picture(mapa, width=Inches(5))
         last_paragraph = document.paragraphs[-1]
         last_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
-    mapa_redes= os.path.join(mapas_dir, 'REDES.png')
+        mapa_redes= os.path.join(mapas_dir, 'REDES.png')
 
     document.add_paragraph(
-    'Mapa red redes', style='List Bullet'
+    'Mapa red redes', style='parrafo'
     )
     document.add_picture(mapa_redes, width=Inches(5))
     last_paragraph = document.paragraphs[-1]
@@ -166,14 +174,20 @@ def guardar():
             if not os.path.isfile(mapa):
                 continue
             document.add_paragraph(
-            j, style='List Bullet'
+            j, style='parrafo'
             )
 
             document.add_picture(mapa, width=Inches(5))
             last_paragraph = document.paragraphs[-1]
             last_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
+    document.add_paragraph(
+    "",style='parrafo').add_run(
+           "Para complementar por favor verificar evidencias en el siguiente enlace LINK EVIDENCIAS."
+           ).font.highlight_color = WD_COLOR_INDEX.YELLOW
+
     document.save('demo.docx')
+    f.close()
 
 def borrar():
     dir = os.path.join(script_dir, 'mapas')

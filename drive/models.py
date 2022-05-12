@@ -10,5 +10,4 @@ class drivetest(models.Model):
     def get_object(self):
 
         #link=str(self.uploadedFile)
-        password
-        return None
+        return str(uploadedFile.url)

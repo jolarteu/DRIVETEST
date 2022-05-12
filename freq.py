@@ -27,6 +27,8 @@ def histogram(value, filename, df):
     #plt.show()
     plt.tight_layout()
     plt.savefig(filename,  dpi=250)
+    plt.clf()
+    plt.cla()
     plt.close()
 
 def gps_(df, filename):
@@ -48,4 +50,6 @@ def gps_(df, filename):
     plt.ylabel('metros')
     plt.tight_layout()
     plt.savefig(filename,  dpi=250)
+    plt.clf()
+    plt.cla()
     plt.close()
