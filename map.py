@@ -102,18 +102,22 @@ def generar_mapas_roaming_2(df):
 
 def generar_mapas_ca(df):
     lista=df.loc[df['CA'] ==2]
-    latitud=lista['LAT']
-    longitud=lista['LON']
-    nombre="mapa_CA"
-    # latitud=[]
-    # longitud=[]
-    # for i in a:
-    #     print (i)
-    #     lista=df.loc[df['CA'] ==i]
-    #     latitud.append(lista['LAT'])
-    #     longitud.append(lista['LON'])
+    if len(lista)>0:
 
-    mapa(latitud, longitud, nombre, False)
+        latitud=lista['LAT']
+        longitud=lista['LON']
+        nombre="mapa_CA"
+        # latitud=[]
+        # longitud=[]
+        # for i in a:
+        #     print (i)
+        #     lista=df.loc[df['CA'] ==i]
+        #     latitud.append(lista['LAT'])
+        #     longitud.append(lista['LON'])
+
+        mapa(latitud, longitud, nombre, False)
+    else:
+        pass
 
 def guardar():
 
@@ -139,7 +143,7 @@ def guardar():
         last_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
 
-    for i, j in zip([1, 4,3,0], ['mapa recorrido', 'mapa 4G', 'mapa 3G','mapa sin cobertura']):
+    for i, j in zip([1, 4,3,0, 'CA'], ['mapa recorrido', 'mapa 4G', 'mapa 3G','mapa sin cobertura','mapa CA']):
 
         mapa=os.path.join(mapas_dir, 'mapa_'+str(i)+'.png')
 
@@ -181,6 +185,9 @@ def guardar():
             last_paragraph = document.paragraphs[-1]
             last_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
+
+
+
     document.add_paragraph(
     "",style='parrafo').add_run(
            "Para complementar por favor verificar evidencias en el siguiente enlace LINK EVIDENCIAS."
@@ -202,7 +209,7 @@ def main_map(df):
     borrar()
     gps_(df,graficas_dir)
     generar_histogramas(df)
-    # #generar_mapas_ca(df)
+    generar_mapas_ca(df)
     generar_mapas(df)
     generar_mapas_roaming(df)
     generar_mapas_roaming_2(df)
