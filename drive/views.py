@@ -1,3 +1,5 @@
+import os
+
 from django.shortcuts import render
 from django.views.generic.edit import FormView
 # Create your views here.
@@ -13,12 +15,14 @@ from django.conf import settings
 
 
 class ArticleListView(ListView):
-
+    mpa=open(os.path.join(settings.STATIC_ROOT, 'map.png'))
     model = drivetest
     # paginate_by = 100  # if pagination is desired
     template_name='drive/table.html'
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
+        context['static']=str(settings.STATIC_ROOT)
         return context
 
     def post(self, request):
@@ -32,11 +36,12 @@ class ArticleListView(ListView):
         try:
             main_map(pk)
 
-            return FileResponse(open('demo.docx', 'rb'), as_attachment=True, filename='informe_'+str(name)+'.docx')
+
+            return FileResponse(open(os.path.join(settings.STATIC_ROOT, 'demo.docx'), 'rb'), as_attachment=True, filename='informe_'+str(name)+'.docx')
 
         except Exception as e:
             print(e)
-            return FileResponse(open('salida.docx', 'rb'), as_attachment=True, filename='informe_'+str(name)+'.docx')
+            return FileResponse(open(os.path.join(settings.STATIC_ROOT, 'salida.docx'), 'rb'), as_attachment=True, filename='informe_'+str(name)+'.docx')
 
 
 class DriveFormView(FormView):

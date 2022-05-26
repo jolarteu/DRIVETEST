@@ -13,16 +13,18 @@ from django.conf import settings
 from django.core.files.storage import default_storage
 import ntpath
 from docx.enum.text import WD_COLOR_INDEX
+import matplotlib.patches as mpatches
+from django.conf import settings
 
-
-script_dir = os.path.dirname(__file__)
+#script_dir_root = os.path.dirname(__file__)
+script_dir = settings.STATIC_ROOT
 mapas_dir = os.path.join(script_dir, 'mapas')
 graficas_dir = os.path.join(script_dir, 'graficas')
 
 def mapa(latitud, longitud, nombre, type):
 
     colors=['red','green','blue','black', 'orange','gray','yellow']
-    ruh_m = plt.imread('map.png')
+    ruh_m = plt.imread(os.path.join(script_dir, 'map.png'))
     nombre=nombre+".png"
     # BBox = ((-74.1704,  -74.0097,
     #     4.5982, 4.7138))
@@ -40,8 +42,10 @@ def mapa(latitud, longitud, nombre, type):
     ax.set_title('Drive Test Powered by Sostecnible')
     ax.set_xlim(BBox[0],BBox[1])
     ax.set_ylim(BBox[2],BBox[3])
-    legend1 = ax.legend()
-    ax.add_artist(legend1)
+    # red_patch = mpatches.Patch(color='red', label='The red data')
+    # ax.legend(handles=[red_patch])
+    # legend1 = ax.legend()
+    # ax.add_artist(legend1)
     ax.imshow(ruh_m, zorder=0, extent = BBox, aspect= 'auto')
     dir = os.path.join(script_dir, 'mapas')
     dir2 = os.path.join(dir, nombre)
@@ -121,8 +125,10 @@ def generar_mapas_ca(df):
 
 def guardar():
 
-    f = open('base.docx', 'rb')
+
+    f = open(os.path.join(script_dir, 'base.docx'), 'rb')
     document = Document(f)
+
 
     lista=['PLMN', 'SYSTEM','BAND', 'gps']
     puntos=[".0",""]
@@ -193,14 +199,18 @@ def guardar():
            "Para complementar por favor verificar evidencias en el siguiente enlace LINK EVIDENCIAS."
            ).font.highlight_color = WD_COLOR_INDEX.YELLOW
 
-    document.save('demo.docx')
+    doc_dir = os.path.join(script_dir, 'demo.docx')
+
+    document.save(doc_dir)
     f.close()
 
 def borrar():
-    dir = os.path.join(script_dir, 'mapas')
+    dir_1 = os.path.join(script_dir, 'mapas')
+    dir_2 = os.path.join(script_dir, 'graficas')
     # dir = "/Users/juans/Documents/informe_drivetest/mapas"
-    for file in os.scandir(dir):
-         os.remove(file.path)
+    for i in [dir_1, dir_2]:
+        for file in os.scandir(i):
+             os.remove(file.path)
 
 def main_map(df):
     df.replace(os.sep,ntpath.sep)

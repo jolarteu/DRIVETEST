@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
+from django.contrib.auth.views import LoginView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("drive.urls")),
+    path('drive/', include("drive.urls")),
+    path('',LoginView.as_view(template_name='login.html'), name='login')
 
 ]

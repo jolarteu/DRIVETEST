@@ -11,14 +11,8 @@ def histogram(value, filename, df):
         df=df[value].to_numpy()
         df = np.where(df == 1, 0, df)
     unique_elements, counts_elements = np.unique(df, return_counts=True)
-    #
-    # #rint((np.asarray((unique_elements, counts_elements)))[1])
-    # #
-    print(unique_elements)
-    print(counts_elements)
 
     helper = np.arange(len(unique_elements))
-    print(helper)
     plt.bar( helper,counts_elements, color='b')
     plt.xticks(ticks=helper, labels=unique_elements, rotation=90)
 
