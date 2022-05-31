@@ -12,12 +12,17 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from django.http import FileResponse
 from map import main_map
 from django.conf import settings
+from django.contrib.auth.views import LoginView
+
+
+class CustomLoginView(LoginView):
+    template_name = 'drive/login.html'
+
+    redirect_authenticated_user = True
 
 
 class ArticleListView(ListView):
-    mpa=open(os.path.join(settings.STATIC_ROOT, 'map.png'))
     model = drivetest
-    # paginate_by = 100  # if pagination is desired
     template_name='drive/table.html'
     def get_context_data(self, **kwargs):
 
