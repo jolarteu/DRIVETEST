@@ -17,7 +17,7 @@ import matplotlib.patches as mpatches
 from django.conf import settings
 
 #script_dir_root = os.path.dirname(__file__)
-script_dir = settings.STATIC_URL
+script_dir = settings.STATIC_ROOT
 mapas_dir = os.path.join(script_dir, 'mapas')
 graficas_dir = os.path.join(script_dir, 'graficas')
 
