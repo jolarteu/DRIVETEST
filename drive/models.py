@@ -2,10 +2,12 @@ from django.db import models
 
 class drivetest(models.Model):
     name = models.CharField(max_length=100)
-    uploadedFile = models.FileField(upload_to = "Files/", default=None)
+    csv = models.FileField(upload_to = "csv/", default=None)
     date=models.DateField(null=True)
     date_created = models.DateField(auto_now = True)
-    extra = models.FileField(upload_to ="Extra/", default=None)
+    kml = models.FileField(upload_to ="kml/", default=None)
+    bill = models.FileField(upload_to ="bill/", default=None)
+
 
     def get_object(self):
 

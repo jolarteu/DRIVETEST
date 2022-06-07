@@ -7,8 +7,8 @@ from drive.models import drivetest
 class  driveAdmin(admin.ModelAdmin):
 
 
-    list_display =('pk', 'name','uploadedFile')
+    list_display =('pk', 'name','csv', 'kml', 'bill')
 
     # list_display_links = ('pk')
 
-    list_editable=('name','uploadedFile')
+    list_editable=('name','csv', 'kml', 'bill')

@@ -21,6 +21,7 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
 
 
+
 class ArticleListView(ListView):
     model = drivetest
     template_name='drive/table.html'

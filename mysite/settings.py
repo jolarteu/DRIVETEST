@@ -122,17 +122,16 @@ USE_TZ = True
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = [BASE_DIR / 'static']
-
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
-LOGIN_REDIRECT_URL = '/lista'
+LOGIN_REDIRECT_URL = '/'
 # Configure Django App for Heroku.
 # import django_heroku
 # django_heroku.settings(locals())
