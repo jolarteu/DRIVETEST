@@ -27,7 +27,11 @@
       <td class="text-center"> <a href="{{ article.csv.url }}" download  class="btn btn-outline-info float-right ">Download</a></td>
       <td>{{article.date}}</td>
       <td class="text-center"> <a href="{{ article.kml.url }}" download  class="btn btn-outline-info float-right ">Download</a></td>
+      {% if article.bill%}
       <td class="text-center"> <a href="{{ article.bill.url }}" download  class="btn btn-outline-info float-right ">Download</td>
+      {%else%}
+      <td class="text-center"> <a href={% url 'drive:editar' pk=article.pk %}   class="btn btn-outline-info float-right ">agregar</td>
+      {%endif%}
       <td class="text-center">
             <form  method='POST'>
             {% csrf_token %}

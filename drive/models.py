@@ -6,7 +6,7 @@ class drivetest(models.Model):
     date=models.DateField(null=True)
     date_created = models.DateField(auto_now = True)
     kml = models.FileField(upload_to ="kml/", default=None)
-    bill = models.FileField(upload_to ="bill/", default=None)
+    bill = models.FileField(upload_to ="bill/", default=None, blank=True)
 
 
     def get_object(self):

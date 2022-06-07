@@ -12,5 +12,6 @@ urlpatterns = [
     path('', login_required(ArticleListView.as_view()), name='lista'),
     path('agregar', login_required(DriveFormView.as_view()), name='agregar'),
     path('accounts/login/', views.CustomLoginView.as_view(), name='login'),
-    path('logout/', login_required(logout_then_login), name='logout')
+    path('logout/', login_required(logout_then_login), name='logout'),
+    path('editar/<int:pk>',login_required(FacturaUpdateView.as_view()), name='editar')
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,10 +1,10 @@
 import os
 
 from django.shortcuts import render
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView
 # Create your views here.
 from django.views.generic import ListView, DetailView, CreateView
-from drive.forms import driveForm
+from drive.forms import driveForm, FacturaUpdateForm
 from drive.models import drivetest
 from docx import Document
 from docx.shared import Inches
@@ -13,7 +13,7 @@ from django.http import FileResponse
 from map import main_map
 from django.conf import settings
 from django.contrib.auth.views import LoginView
-
+from django.urls import reverse_lazy
 
 class CustomLoginView(LoginView):
     template_name = 'drive/login.html'
@@ -60,3 +60,9 @@ class DriveFormView(FormView):
         """Save form data."""
         form.save()
         return super().form_valid(form)
+
+class  FacturaUpdateView(UpdateView):
+    model=drivetest
+    template_name='drive/update.html'
+    form_class=FacturaUpdateForm
+    success_url=reverse_lazy('drive:lista')
