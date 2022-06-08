@@ -1,9 +1,13 @@
+{% load static %}
 
-    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #6fc9f8">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" >
+      <a class="navbar-brand mx-4" href="#">
+       <img src={% static "img/letras.png" %} width="183" height="30" alt="">
+     </a>
         <ul class="navbar-nav ms-auto  px-4">
             <li class="nav-item px-4">
             <a class="navbar-brand" href={% url "drive:lista"%}>
-            <button type="button" class="btn btn-light">Volver</button>
+            <button type="button" class="btn btn-primary ">Volver</button>
            </a>
            </li>
         </ul>

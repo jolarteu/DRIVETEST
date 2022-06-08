@@ -8,29 +8,29 @@
 
     <div class="container mt-4 rounded">
 
-    <table id="example" class="table table-striped table-bordered rounded" style="width:100%">
+    <table id="example" class="table table-bordered " style="width:100%">
       <thead>
-        <tr class="table-info ">
+        <tr class="shadow-lg"style="background-color: #f8f8f8 " >
       <th>Equipo</th>
-      <th>csv</th>
-      <th>fecha</th>
-      <th>kml</th>
-      <th>factura</th>
-      <th>generar</th>
+      <th>Csv</th>
+      <th>Fecha</th>
+      <th>Kml</th>
+      <th>Factura</th>
+      <th>Informe</th>
       </tr>
       </thead>
 
       <tbody>
       {% for article in object_list %}
-      <tr>
+      <tr >
       <td>{{article.name}}</td>
-      <td class="text-center"> <a href="{{ article.csv.url }}" download  class="btn btn-outline-info float-right ">Download</a></td>
+      <td class="text-center"> <a href="{{ article.csv.url }}" download  class="btn btn-outline-primary btn-sm ">Download</a></td>
       <td>{{article.date}}</td>
-      <td class="text-center"> <a href="{{ article.kml.url }}" download  class="btn btn-outline-info float-right ">Download</a></td>
+      <td class="text-center"> <a href="{{ article.kml.url }}" download  class="btn btn-outline-primary btn-sm">Download</a></td>
       {% if article.bill%}
-      <td class="text-center"> <a href="{{ article.bill.url }}" download  class="btn btn-outline-info float-right ">Download</td>
+      <td class="text-center"> <a href="{{ article.bill.url }}" download  class="btn btn-outline-primary btn-sm">Download</td>
       {%else%}
-      <td class="text-center"> <a href={% url 'drive:editar' pk=article.pk %}   class="btn btn-outline-info float-right ">agregar</td>
+      <td class="text-center"> <a href={% url 'drive:editar' pk=article.pk %}   class="btn btn-outline-primary btn-sm">agregar</td>
       {%endif%}
       <td class="text-center">
             <form  method='POST'>

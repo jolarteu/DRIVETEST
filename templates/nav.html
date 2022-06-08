@@ -1,15 +1,19 @@
+{% load static %}
 
 
-<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #6fc9f8  ">
+<nav class="navbar navbar-expand-md navbar-dark shadow-lg bg-dark">
+  <a class="navbar-brand mx-4" href="#">
+   <img src={% static "img/letras.png" %} width="183" height="30" alt="">
+ </a>
   <ul class="navbar-nav ms-auto  px-4">
       <li class="nav-item px-2">
         <a class="navbar-brand" href={% url "drive:agregar"%}>
-        <button type="button" class="btn btn-light">Agregar</button>
+        <button type="button" class="btn btn-primary">Agregar</button>
         </a>
       </li>
       <li class="nav-item">
         <a class="navbar-brand" href={% url "drive:logout"%}>
-        <button type="button" class="btn  btn-light">Salir</button>
+        <button type="button" class="btn  btn-primary">Salir</button>
       </a>
       </li>
     </ul>
