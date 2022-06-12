@@ -25,4 +25,4 @@ urlpatterns = [
     path('', include("drive.urls")),
     #path('',LoginView.as_view(template_name='login.html'), name='login')
 
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

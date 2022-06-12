@@ -18,4 +18,4 @@ urlpatterns = [
     path('editar/<int:pk>',login_required(FacturaUpdateView.as_view()), name='editar'),
 
 
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
