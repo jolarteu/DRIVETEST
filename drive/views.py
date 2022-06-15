@@ -1,5 +1,5 @@
 import os
-
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic.edit import FormView, UpdateView, DeleteView
 # Create your views here.
@@ -77,3 +77,28 @@ class  FacturaUpdateView(UpdateView):
 class DriveDelete(DeleteView):
     model = drivetest
     success_url ="/"
+
+    # def get_queryset(self):
+    #     return User.objects.filter(username=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        #user=get_queryset()
+        self.object = self.get_object()
+        usario=User.objects.get(username=self.object.user)
+        context = super().get_context_data(**kwargs)
+        # if self.object.user == self.request.user:
+        context['usuario'] = usario
+        # else:
+        context['titulo']='holii'
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.user == self.request.user:
+            success_url = self.get_success_url()
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        else:
+
+            return HttpResponseRedirect(self.success_url)

@@ -45,8 +45,13 @@
                   </button>
               </form>
     </td>
-    <td class="text-center align-middle"><a href={% url 'drive:eliminar' pk=article.pk %} class=" btn "><i class=" bi bi-trash"></i> </a></td>
-
+    <td class="text-center align-middle">
+          {% if   user == article.user %}
+          <a href={% url 'drive:eliminar' pk=article.pk %} class=" btn "><i class=" bi bi-trash"></i> </a>
+          {%else%}
+          <a href=# class=" btn " disabled><i class=" bi bi-trash"></i> </a>
+          {% endif  %}
+          </td>
       </tr>
       {% endfor %}
       </tbody>
