@@ -11,37 +11,42 @@
     <table id="example" class="table table-bordered " style="width:100%">
       <thead>
         <tr class="shadow-lg"style="background-color: #f8f8f8 " >
-      <th>Equipo</th>
-      <th>Csv</th>
-      <th>Fecha</th>
-      <th>Kml</th>
-      <th>Factura</th>
-      <th>Informe</th>
+      <th >Equipo</th>
+      <th >Csv</th>
+      <th >Fecha</th>
+      <th >Kml</th>
+      <th >Factura</th>
+      <th >Responsable</th>
+      <th >Informe</th>
+      <th >Eliminar</th>
       </tr>
       </thead>
 
       <tbody>
       {% for article in object_list %}
       <tr >
-      <td>{{article.name}}</td>
-      <td class="text-center"> <a href="{{ article.csv.url }}" download  class="btn btn-outline-primary btn-sm ">Download</a></td>
-      <td>{{article.date}}</td>
-      <td class="text-center"> <a href="{{ article.kml.url }}" download  class="btn btn-outline-primary btn-sm">Download</a></td>
+      <td class="text-center">{{article.name}} </td>
+      <td class="text-center"> <a href="{{ article.csv.url }}" download  class="btn"><i class="bi bi-download"></i></a></td>
+      <td class="text-center">{{article.date}}</td>
+      <td class="text-center"> <a href="{{ article.kml.url }}" download  class="btn"><i class="bi bi-download"></i></a></td>
       {% if article.bill%}
-      <td class="text-center"> <a href="{{ article.bill.url }}" download  class="btn btn-outline-primary btn-sm">Download</td>
+      <td class="text-center"> <a href="{{ article.bill.url }}" download  class="btn"><i class="bi bi-download"></i></a></td>
       {%else%}
-      <td class="text-center"> <a href={% url 'drive:editar' pk=article.pk %}   class="btn btn-outline-primary btn-sm">agregar</td>
+      <td class="text-center"> <a href={% url 'drive:editar' pk=article.pk %}   class="btn"><i class="bi bi-file-earmark-plus"></i></a></td>
       {%endif%}
+      <td class="text-center">{{article.user.first_name}}</td>
       <td class="text-center">
             <form  method='POST'>
             {% csrf_token %}
                   <input type='hidden' name='key' value="{{article.csv.url}}">
                   <input type='hidden' name='name' value="{{article.name}}">
-                  <button type="submit" class="btn btn-default btn-xs btn-flat ml-1">
-                  <i class="fas fa-file-alt"></i>
+                  <button type="submit" class=" btn shadow-none">
+                  <i class="bi bi-file-earmark-bar-graph"></i>
                   </button>
-            </form>
+              </form>
     </td>
+    <td class="text-center align-middle"><a href={% url 'drive:eliminar' pk=article.pk %} class=" btn "><i class=" bi bi-trash"></i> </a></td>
+
       </tr>
       {% endfor %}
       </tbody>
@@ -59,7 +64,8 @@
           $('#example').DataTable({
               "lengthChange": false,
               pageLength: 10,
-               "order": [[ 2, "desc" ]]
+               "order": [[ 2, "desc" ]],
+               autoWidth: false
           });
       } );
       </script>

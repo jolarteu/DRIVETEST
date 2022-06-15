@@ -1,7 +1,7 @@
 import os
 
 from django.shortcuts import render
-from django.views.generic.edit import FormView, UpdateView
+from django.views.generic.edit import FormView, UpdateView, DeleteView
 # Create your views here.
 from django.views.generic import ListView, DetailView, CreateView
 from drive.forms import driveForm, FacturaUpdateForm
@@ -14,6 +14,7 @@ from map import main_map
 from django.conf import settings
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
+from django.contrib.auth.models import User
 
 class CustomLoginView(LoginView):
     template_name = 'drive/login.html'
@@ -53,16 +54,26 @@ class ArticleListView(ListView):
 class DriveFormView(FormView):
     template_name = 'drive/agregar.html'
     form_class = driveForm
-
     success_url ="/"
 
     def form_valid(self, form):
         """Save form data."""
-        form.save()
+        app_model = form.save(commit=False)
+        #app_model.user = self.request.user
+        app_model.user = User.objects.get(username=self.request.user)
+        app_model.save()
+        #form.save()
         return super().form_valid(form)
+
+    def get_queryset(self):
+        return User.objects.filter(user=self.request.user)
 
 class  FacturaUpdateView(UpdateView):
     model=drivetest
     template_name='drive/update.html'
     form_class=FacturaUpdateForm
     success_url=reverse_lazy('drive:lista')
+
+class DriveDelete(DeleteView):
+    model = drivetest
+    success_url ="/"

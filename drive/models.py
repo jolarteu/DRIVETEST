@@ -1,6 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class drivetest(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     csv = models.FileField(upload_to = "csv/", default=None)
     date=models.DateField(null=True)

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block container%}
+
+{% include "nav_agregar.html" %}
+
+  <div class="container  h-100">
+    <div class="d-flex h-100  align-items-center justify-content-center">
+
+<form method="post">{% csrf_token %}
+
+
+
+<p>¿Seguro que quiere eliminar la información del equipo {{ object.name }}?</p>
+
+
+    <div class="text-center">
+    <input class="btn btn-primary" type="submit" value="confirmar">
+    </div>
+</form>
+</div>
+</div>
+{%endblock%}
