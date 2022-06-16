@@ -21,6 +21,7 @@ class CustomLoginView(LoginView):
 
     redirect_authenticated_user = True
 
+#prueba
 
 
 class ArticleListView(ListView):
