@@ -6,3 +6,4 @@ db.sqlite3
 /staticfiles
 /drive/migrations
 /media
+drivetestService.sh
